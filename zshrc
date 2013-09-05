@@ -46,3 +46,6 @@ plugins=(git)
 source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
+
+source ~/.dotfiles/myConfig.zsh
+source ~/.dotfiles/aliases.zsh
