@@ -27,8 +27,8 @@ autoload -Uz colors
 colors
 
 # prompt
-PROMPT="%{${fg[red]}%}[%n@%m($(date +"%H:%M"))]%{${reset_color}%} %~%{${fg[blue]}%}$(branchShow)%{${reset_color}%} %{${fg[green]}%}%(?..[%?] )%{${reset_color}%}
-%{${fg[green]}%} $ %{${reset_color}%}"
+PROMPT='%{${fg[red]}%}[%n@%m($(date +"%H:%M"))]%{${reset_color}%} %~%{${fg[blue]}%}$(branchShow)%{${reset_color}%} %{${fg[green]}%}%(?..[%?] )%{${reset_color}%}
+%{${fg[green]}%} $ %{${reset_color}%}'
 
 # complete
 autoload -Uz compinit
