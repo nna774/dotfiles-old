@@ -32,9 +32,6 @@ autoload -U compinit; compinit
 export CLOUDSDK_PYTHON=/usr/bin/python2
 export PATH=/home/nona/google-cloud-sdk/bin:$PATH
 
-# The next line enables shell command completion for gcloud.
-source '/home/nona/google-cloud-sdk/completion.zsh.inc'
-
 export NVM_DIR="/home/nona/.nvm"
 nvm() {
   unset -f nvm

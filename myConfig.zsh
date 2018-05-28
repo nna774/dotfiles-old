@@ -11,6 +11,7 @@ autoload -Uz colors
 colors
 
 ## show git branch
+setopt prompt_subst
 function branchString() {
     br=`git symbolic-ref HEAD 2>/dev/null`
     if [ $? -eq 0 ] ;then
