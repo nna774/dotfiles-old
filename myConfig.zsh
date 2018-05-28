@@ -64,6 +64,8 @@ function cd() {
 
 # ignore case
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
+### r:|[._-]=*: 「.」「_」「-」の前にワイルドカード「*」があるものとして補完する。
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z} r:|[._-]=*'
 
 # redirect UWAGAKI KINSHI
 setopt no_clobber
@@ -95,3 +97,11 @@ else
     eval `ssh-agent`
     ln -snf "$SSH_AUTH_SOCK" $agent && export SSH_AUTH_SOCK=$agent
 fi
+
+# 単語の区切り文字を指定する
+autoload -Uz select-word-style
+select-word-style default
+# ここで指定した文字は単語区切りとみなされる
+# / も区切りと扱うので、^W でディレクトリ１つ分を削除できる
+zstyle ':zle:*' word-chars " /=;@:{},|"
+zstyle ':zle:*' word-style unspecified
