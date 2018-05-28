@@ -24,3 +24,4 @@ alias webcamWB='~/local/webcam'
 
 alias crontab='crontab -i'
 alias cdtemp='cd `mktemp -d`'
+alias diff='diff -u'

@@ -6,29 +6,35 @@ HISTFILE=~/.zsh_history
 HISTSIZE=1000000
 SAVEHIST=1000000
 
-## show git branch
-setopt prompt_subst
-function branchString() {
-    local br=`git symbolic-ref HEAD 2>/dev/null | sed -e "s/.*\/\(.*\)/\1/g"`
-    echo -n $br
-}
-
-function branchShow() {
-    local bs=$(branchString)
-    if [ -n "$bs" ] ;then
-       echo -n \($bs\)
-    else
-       echo -n
-    fi
-}
-
 # use colorful zsh
 autoload -Uz colors
 colors
 
+## show git branch
+function branchString() {
+    br=`git symbolic-ref HEAD 2>/dev/null`
+    if [ $? -eq 0 ] ;then
+      echo -n `echo $br | sed -e "s/.*\/\(.*\)/\1/g"`
+    else
+      echo -n "DETACHED HEAD"
+    fi
+}
+
+function branchShow() {
+    git status > /dev/null 2> /dev/null
+    if [ $? -eq 0 ]; then
+      local bs=$(branchString)
+      if [ -n "$bs" ] ;then
+         echo -n \($bs\)
+      else
+         echo 
+      fi
+    fi
+}
+
 # prompt
-PROMPT="%{${fg[red]}%}[%n@%m($(date +"%H:%M"))]%{${reset_color}%} %~%{${fg[blue]}%}$(branchShow)%{${reset_color}%} %{${fg[green]}%}%(?..[%?] )%{${reset_color}%}
-%{${fg[green]}%} $ %{${reset_color}%}"
+PROMPT='%{${fg[red]}%}[%n@%m($(date +'%H:%M'))]%{${reset_color}%} %~%{${fg[green]}%}$(branchShow)%{${reset_color}%} %{${fg[green]}%}%(?..[%?] )%{${reset_color}%}
+%{${fg[green]}%} $ %{${reset_color}%}'
 
 # complete
 autoload -Uz compinit
@@ -51,7 +57,7 @@ zstyle ':completion:*:processes' command 'ps x -o pid,s,args'
 setopt print_eight_bit
 
 # cd
-setopt auto_cd 
+unsetopt auto_cd 
 setopt auto_pushd
 setopt pushd_ignore_dups
   
@@ -71,7 +77,6 @@ setopt no_clobber
 # Add PATH
 PATH="$PATH":~/.cabal/bin
 
-###
 export EDITOR="nano -w"
 
 ### C-u は誤爆しかしない
@@ -95,3 +100,6 @@ else
     eval `ssh-agent`
     ln -snf "$SSH_AUTH_SOCK" $agent && export SSH_AUTH_SOCK=$agent
 fi
+
+# added by travis gem
+[ -f /home/nona/.travis/travis.sh ] && source /home/nona/.travis/travis.sh

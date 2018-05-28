@@ -1,8 +1,9 @@
+export LANG=ja_JP.UTF-8
 export PATH="$HOME/.rbenv/bin:$PATH"
 
 source ~/.dotfiles/myConfig.zsh
-source ~/.dotfiles/localConfig.zsh
 source ~/.dotfiles/aliases.zsh
+source ~/.dotfiles/localConfig.zsh
 
 if [ -r /usr/share/doc/pkgfile/command-not-found.zsh ]
 then
